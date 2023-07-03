@@ -23,8 +23,11 @@
 #
 """Bytes."""
 
-from humanfriendly import format_size
+from typing import Any
 
+from humanfriendly import format_size, parse_size
+
+from . import converter
 from .baseint import BaseInt
 
 
@@ -33,6 +36,8 @@ class Bytes(BaseInt, int):  # type: ignore
     Integer with byte representation.
 
     >>> Bytes(1)
+    Bytes('1 byte')
+    >>> Bytes('1 byte')
     Bytes('1 byte')
     >>> str(Bytes(1))
     '1 byte'
@@ -106,6 +111,17 @@ class Bytes(BaseInt, int):  # type: ignore
     Bytes('-5 bytes')
     """
 
+    def __new__(cls, value: Any):
+        try:
+            value = converter.int_(value, strcast=_parse_bytes)[0]
+        except Exception:
+            raise ValueError(f"Invalid number of bytes: '{value}'") from None
+        return super().__new__(cls, value)
+
     def __str__(self):
         ret = format_size(int(self), binary=True)
         return ret.replace("iB", "B")
+
+
+def _parse_bytes(value):
+    return parse_size(value, binary=True)

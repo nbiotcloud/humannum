@@ -23,14 +23,19 @@
 #
 """Hexadecimal."""
 
+from typing import Any, Optional
+
+from . import converter
 from .baseint import BaseInt
 
 
-class Hex(BaseInt, int):  # type: ignore
+class Hex(BaseInt):
     """
     Integer with hexadecimal representation.
 
     >>> Hex(50)
+    Hex('0x32')
+    >>> Hex('0x32')
     Hex('0x32')
     >>> str(Hex(50))
     '0x32'
@@ -109,12 +114,19 @@ class Hex(BaseInt, int):  # type: ignore
     '-0x03'
     """
 
+    def __new__(cls, value: Any, width: Optional[int] = None):
+        value = converter.int_(value)[0]
+        return super().__new__(cls, value)
+
+    def __init__(self, value: Any, width: Optional[int] = None):
+        if width is not None:
+            self.width = width
+        else:
+            self.width = converter.int_(value)[1]  # type: ignore
+
     def __str__(self):
         value = int(self)
-        try:
-            width = self.width
-        except AttributeError:
-            width = None
+        width = self.width
         # pylint: disable=consider-using-f-string
         if width:
             pat = "0x%%0%dX" % ((width + 3) / 4,)

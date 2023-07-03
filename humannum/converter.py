@@ -25,6 +25,7 @@
 Converter.
 """
 import re
+from functools import lru_cache
 from math import ceil, log2
 from typing import Optional, Tuple
 
@@ -41,6 +42,7 @@ _int_prefixes = (
 )
 
 
+@lru_cache(maxsize=32)
 def int_(value, strcast=None) -> Tuple[int, Optional[int]]:
     """
     Convert Integer.

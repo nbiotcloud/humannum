@@ -66,8 +66,6 @@ Bytes('42 bytes')
 
 from typing import Any, Optional
 
-from humanfriendly import parse_size as _parse_size
-
 from . import baseint, converter
 from .binary import Bin
 from .bytes import Bytes
@@ -115,14 +113,7 @@ def bin_(value: Any, width: Optional[int] = None) -> Bin:
     >>> bin_("16'd50", width=4)
     Bin('0b110010')
     """
-    if isinstance(value, Bin) and width is None:
-        return value
-    value, valuewidth = converter.int_(value)
-    if width is not None:
-        valuewidth = width
-    binvalue = Bin(value)
-    binvalue.width = valuewidth  # type: ignore
-    return binvalue
+    return Bin(value, width=width)
 
 
 def hex_(value: Any, width: Optional[int] = None) -> Hex:
@@ -166,14 +157,7 @@ def hex_(value: Any, width: Optional[int] = None) -> Hex:
     >>> hex_("16'd50", width=4)
     Hex('0x32')
     """
-    if isinstance(value, Hex) and width is None:
-        return value
-    value, valuewidth = converter.int_(value)
-    if width is not None:
-        valuewidth = width
-    hexvalue = Hex(value)
-    hexvalue.width = valuewidth  # type: ignore
-    return hexvalue
+    return Hex(value, width=width)
 
 
 def bytes_(value: Any) -> Bytes:
@@ -197,16 +181,6 @@ def bytes_(value: Any) -> Bytes:
     >>> bytes_("5FOO")
     Traceback (most recent call last):
         ...
-    ValueError: invalid number of bytes: '5FOO'
+    ValueError: Invalid number of bytes: '5FOO'
     """
-    if isinstance(value, Bytes):
-        return value
-    try:
-        value, _ = converter.int_(value, strcast=_parse_bytes)
-    except Exception as exc:
-        raise ValueError(f"invalid number of bytes: '{value}'") from exc
     return Bytes(value)
-
-
-def _parse_bytes(value):
-    return _parse_size(value, binary=True)

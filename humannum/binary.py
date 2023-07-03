@@ -23,14 +23,19 @@
 #
 """Binary."""
 
+from typing import Any, Optional
+
+from . import converter
 from .baseint import BaseInt
 
 
-class Bin(BaseInt, int):  # type: ignore
+class Bin(BaseInt):
     """
     Integer with binary representation.
 
     >>> Bin(50)
+    Bin('0b110010')
+    >>> Bin('0b110010')
     Bin('0b110010')
     >>> str(Bin(50))
     '0b110010'
@@ -108,13 +113,19 @@ class Bin(BaseInt, int):  # type: ignore
     '-0b000011'
     """
 
+    def __new__(cls, value: Any, width: Optional[int] = None):
+        value = converter.int_(value)[0]
+        return super().__new__(cls, value)
+
+    def __init__(self, value: Any, width: Optional[int] = None):
+        if width is not None:
+            self.width = width
+        else:
+            self.width = converter.int_(value)[1]  # type: ignore
+
     def __str__(self):
         value = int(self)
-        try:
-            width = self.width
-        except AttributeError:
-            width = None
-
+        width = self.width
         if width:
             if value >= 0:
                 return "0b" + bin(value)[2:].zfill(width)
