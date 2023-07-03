@@ -31,48 +31,50 @@ class Bin(BaseInt, int):  # type: ignore
     Integer with binary representation.
 
     >>> Bin(50)
-    0b110010
-    >>> Bin(500)
-    0b111110100
+    Bin('0b110010')
+    >>> str(Bin(50))
+    '0b110010'
+    >>> str(Bin(500))
+    '0b111110100'
 
     This binary value behaves like a normal integer, but the first value dominates.
 
     >>> 8 + Bin(8)
     16
-    >>> Bin(8) + 8
-    0b10000
-    >>> Bin(8) - 2
-    0b110
-    >>> Bin(8) * 3
-    0b11000
-    >>> Bin(8) / 3
-    0b10
-    >>> Bin(8) // 3
-    0b10
-    >>> Bin(8) % 5
-    0b11
-    >>> Bin(8) << 1
-    0b10000
-    >>> Bin(8) >> 1
-    0b100
-    >>> Bin(8) ** 2
-    0b1000000
-    >>> Bin(9) & 3
-    0b1
-    >>> Bin(8) | 3
-    0b1011
-    >>> Bin(9) ^ 3
-    0b1010
+    >>> str(Bin(8) + 8)
+    '0b10000'
+    >>> str(Bin(8) - 2)
+    '0b110'
+    >>> str(Bin(8) * 3)
+    '0b11000'
+    >>> str(Bin(8) / 3)
+    '0b10'
+    >>> str(Bin(8) // 3)
+    '0b10'
+    >>> str(Bin(8) % 5)
+    '0b11'
+    >>> str(Bin(8) << 1)
+    '0b10000'
+    >>> str(Bin(8) >> 1)
+    '0b100'
+    >>> str(Bin(8) ** 2)
+    '0b1000000'
+    >>> str(Bin(9) & 3)
+    '0b1'
+    >>> str(Bin(8) | 3)
+    '0b1011'
+    >>> str(Bin(9) ^ 3)
+    '0b1010'
     >>> divmod(Bin(9), 3)
-    (0b11, 0b0)
-    >>> ~Bin(9)
-    -0b1010
-    >>> -Bin(9)
-    -0b1001
-    >>> abs(Bin(-9))
-    0b1001
-    >>> +Bin(9)
-    0b1001
+    (Bin('0b11'), Bin('0b0'))
+    >>> str(~Bin(9))
+    '-0b1010'
+    >>> str(-Bin(9))
+    '-0b1001'
+    >>> str(abs(Bin(-9)))
+    '0b1001'
+    >>> str(+Bin(9))
+    '0b1001'
     >>> Bin(8) | 'A'
     Traceback (most recent call last):
       ...
@@ -84,29 +86,29 @@ class Bin(BaseInt, int):  # type: ignore
 
     Corner Cases:
 
-    >>> Bin(0)
-    0b0
-    >>> Bin(-5)
-    -0b101
+    >>> str(Bin(0))
+    '0b0'
+    >>> str(Bin(-5))
+    '-0b101'
 
     Width:
 
     >>> a = Bin(3)
-    >>> a
-    0b11
+    >>> str(a)
+    '0b11'
     >>> a.width=6
-    >>> a
-    0b000011
+    >>> str(a)
+    '0b000011'
 
     >>> a = Bin(-3)
-    >>> a
-    -0b11
+    >>> str(a)
+    '-0b11'
     >>> a.width=6
-    >>> a
-    -0b000011
+    >>> str(a)
+    '-0b000011'
     """
 
-    def __repr__(self):
+    def __str__(self):
         value = int(self)
         try:
             width = self.width
@@ -118,5 +120,3 @@ class Bin(BaseInt, int):  # type: ignore
                 return "0b" + bin(value)[2:].zfill(width)
             return "-0b" + bin(-value)[2:].zfill(width)
         return bin(value)
-
-    __str__ = __repr__

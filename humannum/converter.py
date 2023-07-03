@@ -25,6 +25,7 @@
 Converter.
 """
 import re
+from math import ceil, log2
 from typing import Optional, Tuple
 
 _int_prefixes = (
@@ -48,15 +49,17 @@ def int_(value, strcast=None) -> Tuple[int, Optional[int]]:
         Value, Width
 
     >>> int_('0h10')
-    (16, None)
+    (16, 8)
+    >>> int_('0h010')
+    (16, 12)
     >>> int_('0d10')
-    (10, None)
+    (10, 7)
     >>> int_('0x10')
-    (16, None)
+    (16, 8)
     >>> int_('0o10')
-    (8, None)
+    (8, 6)
     >>> int_('0b10')
-    (2, None)
+    (2, 2)
     >>> int_("8'h10")
     (16, 8)
     >>> int_("8'd10")
@@ -66,7 +69,6 @@ def int_(value, strcast=None) -> Tuple[int, Optional[int]]:
     >>> int_("8'b10")
     (2, 8)
     """
-    width = None
     if isinstance(value, str):
         value = value.strip()
         for pat, base in _int_prefixes:
@@ -75,9 +77,11 @@ def int_(value, strcast=None) -> Tuple[int, Optional[int]]:
                 sign = -1 if mat.group("s") else 1
                 value = sign * int(mat.group("v"), base)
                 wid = mat.group("w")
-                width = int(wid) if wid else None
-                break
-        else:
-            if strcast:
-                value = strcast(value)
-    return int(value), width
+                if wid:
+                    width = int(wid)
+                else:
+                    width = int(ceil(len(mat.group("v")) * log2(base)))
+                return int(value), width
+        if strcast:
+            value = strcast(value)
+    return int(value), None

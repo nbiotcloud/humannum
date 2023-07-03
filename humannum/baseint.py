@@ -24,7 +24,7 @@
 """Base Integer."""
 
 
-class BaseInt:
+class BaseInt(int):
 
     """Base Integer."""
 
@@ -79,45 +79,6 @@ class BaseInt:
     def __or__(self, other):
         return self._cast(int.__or__(self, other))
 
-    # def __radd__(self, other):
-    #     return self._cast(int.__radd__(self, other))
-
-    # def __rsub__(self, other):
-    #     return self._cast(int.__rsub__(self, other))
-
-    # def __rmul__(self, other):
-    #     return self._cast(int.__rmul__(self, other))
-
-    # def __rtruediv__(self, other):
-    #     return self._cast(int.__rtruediv__(self, other))
-
-    # def __rfloordiv__(self, other):
-    #     return self._cast(int.__rfloordiv__(self, other))
-
-    # def __rmod__(self, other):
-    #     return self._cast(int.__rmod__(self, other))
-
-    # def __rdivmod__(self, other):
-    #     return self._casttuple(int.__rdivmod__(self, other))
-
-    # def __rpow__(self, other):
-    #     return self._cast(int.__rpow__(self, other))  # type: ignore
-
-    # def __rlshift__(self, other):
-    #     return self._cast(int.__rlshift__(self, other))
-
-    # def __rrshift__(self, other):
-    #     return self._cast(int.__rrshift__(self, other))
-
-    # def __rand__(self, other):
-    #     return self._cast(int.__rand__(self, other))
-
-    # def __rxor__(self, other):
-    #     return self._cast(int.__rxor__(self, other))
-
-    # def __ror__(self, other):
-    #     return self._cast(int.__ror__(self, other))
-
     def __neg__(self):
         return self._cast(int.__neg__(self))
 
@@ -129,3 +90,6 @@ class BaseInt:
 
     def __invert__(self):
         return self._cast(int.__invert__(self))
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}('{self!s}')"

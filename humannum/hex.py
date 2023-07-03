@@ -31,48 +31,50 @@ class Hex(BaseInt, int):  # type: ignore
     Integer with hexadecimal representation.
 
     >>> Hex(50)
-    0x32
-    >>> Hex(500)
-    0x1F4
+    Hex('0x32')
+    >>> str(Hex(50))
+    '0x32'
+    >>> str(Hex(500))
+    '0x1F4'
 
     This hexadecimal value behaves like a normal integer.
 
     >>> 8 + Hex(8)
     16
-    >>> Hex(8) + 8
-    0x10
-    >>> Hex(8) - 2
-    0x6
-    >>> Hex(8) * 3
-    0x18
-    >>> Hex(8) / 3
-    0x2
-    >>> Hex(8) // 3
-    0x2
-    >>> Hex(8) % 5
-    0x3
-    >>> Hex(8) << 1
-    0x10
-    >>> Hex(8) >> 1
-    0x4
-    >>> Hex(8) ** 2
-    0x40
-    >>> Hex(9) & 3
-    0x1
-    >>> Hex(8) | 3
-    0xB
-    >>> Hex(9) ^ 3
-    0xA
+    >>> str(Hex(8) + 8)
+    '0x10'
+    >>> str(Hex(8) - 2)
+    '0x6'
+    >>> str(Hex(8) * 3)
+    '0x18'
+    >>> str(Hex(8) / 3)
+    '0x2'
+    >>> str(Hex(8) // 3)
+    '0x2'
+    >>> str(Hex(8) % 5)
+    '0x3'
+    >>> str(Hex(8) << 1)
+    '0x10'
+    >>> str(Hex(8) >> 1)
+    '0x4'
+    >>> str(Hex(8) ** 2)
+    '0x40'
+    >>> str(Hex(9) & 3)
+    '0x1'
+    >>> str(Hex(8) | 3)
+    '0xB'
+    >>> str(Hex(9) ^ 3)
+    '0xA'
     >>> divmod(Hex(9), 3)
-    (0x3, 0x0)
-    >>> ~Hex(9)
-    -0xA
-    >>> -Hex(9)
-    -0x9
-    >>> abs(Hex(-9))
-    0x9
-    >>> +Hex(9)
-    0x9
+    (Hex('0x3'), Hex('0x0'))
+    >>> str(~Hex(9))
+    '-0xA'
+    >>> str(-Hex(9))
+    '-0x9'
+    >>> str(abs(Hex(-9)))
+    '0x9'
+    >>> str(+Hex(9))
+    '0x9'
 
     >>> Hex(8) | 'A'
     Traceback (most recent call last):
@@ -85,29 +87,29 @@ class Hex(BaseInt, int):  # type: ignore
 
     Corner Cases:
 
-    >>> Hex(0)
-    0x0
-    >>> Hex(-5)
-    -0x5
+    >>> str(Hex(0))
+    '0x0'
+    >>> str(Hex(-5))
+    '-0x5'
 
     Width:
 
     >>> a = Hex(3)
-    >>> a
-    0x3
+    >>> str(a)
+    '0x3'
     >>> a.width=6
-    >>> a
-    0x03
+    >>> str(a)
+    '0x03'
 
     >>> a = Hex(-3)
-    >>> a
-    -0x3
+    >>> str(a)
+    '-0x3'
     >>> a.width=6
-    >>> a
-    -0x03
+    >>> str(a)
+    '-0x03'
     """
 
-    def __repr__(self):
+    def __str__(self):
         value = int(self)
         try:
             width = self.width
@@ -121,5 +123,3 @@ class Hex(BaseInt, int):  # type: ignore
         if value >= 0:
             return pat % (value,)
         return ("-" + pat) % (-value,)
-
-    __str__ = __repr__
