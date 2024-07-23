@@ -24,10 +24,11 @@
 """
 Converter.
 """
+
 import re
 from functools import lru_cache
 from math import ceil, log2
-from typing import Optional, Tuple
+from typing import Optional
 
 _int_prefixes = (
     (re.compile(r"\A(?P<s>-)?(?P<w>)0h(?P<v>.*)"), 16),
@@ -43,33 +44,35 @@ _int_prefixes = (
 
 
 @lru_cache(maxsize=32)
-def int_(value, strcast=None) -> Tuple[int, Optional[int]]:
+def int_(value, strcast=None) -> tuple[int, Optional[int]]:
     """
     Convert Integer.
 
     Returns:
         Value, Width
 
-    >>> int_('0h10')
-    (16, 8)
-    >>> int_('0h010')
-    (16, 12)
-    >>> int_('0d10')
-    (10, 7)
-    >>> int_('0x10')
-    (16, 8)
-    >>> int_('0o10')
-    (8, 6)
-    >>> int_('0b10')
-    (2, 2)
-    >>> int_("8'h10")
-    (16, 8)
-    >>> int_("8'd10")
-    (10, 8)
-    >>> int_("8'o10")
-    (8, 8)
-    >>> int_("8'b10")
-    (2, 8)
+    ??? example "Usage"
+
+            >>> int_('0h10')
+            (16, 8)
+            >>> int_('0h010')
+            (16, 12)
+            >>> int_('0d10')
+            (10, 7)
+            >>> int_('0x10')
+            (16, 8)
+            >>> int_('0o10')
+            (8, 6)
+            >>> int_('0b10')
+            (2, 2)
+            >>> int_("8'h10")
+            (16, 8)
+            >>> int_("8'd10")
+            (10, 8)
+            >>> int_("8'o10")
+            (8, 8)
+            >>> int_("8'b10")
+            (2, 8)
     """
     if isinstance(value, str):
         value = value.strip()
