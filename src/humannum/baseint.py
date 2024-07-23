@@ -25,7 +25,6 @@
 
 
 class BaseInt(int):
-
     """Base Integer."""
 
     @classmethod
