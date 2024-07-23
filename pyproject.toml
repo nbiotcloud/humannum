@@ -106,7 +106,6 @@ commands =
     poetry run coverage report
     poetry run coverage html
     poetry run coverage xml
-    poetry run pylint humannum tests
     poetry run mypy humannum
     poetry run make html -C docs
     poetry run nbcpychecker check

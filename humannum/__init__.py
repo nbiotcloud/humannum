@@ -24,7 +24,7 @@
 """
 Human Friendly Numbers.
 
-Numbers created by :any:`bin_`, :any:`hex` and :any:`bytes_`
+Numbers created by :any:`bin_`, :any:`hex` and :any:`bytesize`
 simply stay in their representation even through calculations if they are the left operand.
 Any string conversion results in a pretty formatted number.
 
@@ -52,15 +52,15 @@ Hex('0x2A')
 
 Bytes:
 
->>> bytes_(42)
-Bytes('42 bytes')
->>> str(bytes_(42))
+>>> bytesize(42)
+Bytesize('42 bytes')
+>>> str(bytesize(42))
 '42 bytes'
->>> str(bytes_(42) + 24)
+>>> str(bytesize(42) + 24)
 '66 bytes'
->>> str(bytes_(42*1000))
-'41.02 KB'
->>> str(bytes_(42*1024))
+>>> str(bytesize(42*1000))
+'42000 bytes'
+>>> str(bytesize(42*1024))
 '42 KB'
 """
 
@@ -68,7 +68,7 @@ from typing import Any, Optional
 
 from . import baseint, converter
 from .binary import Bin
-from .bytes import Bytes
+from .bytesize import Bytesize
 from .hex import Hex
 
 
@@ -160,27 +160,35 @@ def hex_(value: Any, width: Optional[int] = None) -> Hex:
     return Hex(value, width=width)
 
 
-def bytes_(value: Any) -> Bytes:
+def bytesize(value: Any) -> Bytesize:
     """
     Integer with byte representation, return :any:`Bytes` object.
 
-    >>> bytes_(32*1024*1024)
-    Bytes('32 MB')
-    >>> str(bytes_(32*1024*1024))
+    >>> bytesize(32*1024*1024)
+    Bytesize('32 MB')
+    >>> str(bytesize(32*1024*1024))
     '32 MB'
-    >>> str(bytes_("45000.2 KB"))
-    '43.95 MB'
-    >>> str(bytes_(Bytes(40*1024)))
+    >>> str(bytesize("45000.2 KB"))
+    '46080204 bytes'
+    >>> str(bytesize(Bytesize(40*1024)))
     '40 KB'
-    >>> str(bytes_("0x1000"))
+    >>> str(bytesize("0x1000"))
     '4 KB'
-    >>> str(int(bytes_("0x1000")))
+    >>> str(int(bytesize("0x1000")))
     '4096'
-    >>> str(bytes_("-0x1000"))
+    >>> str(bytesize("-0x1000"))
     '-4096 bytes'
-    >>> bytes_("5FOO")
+    >>> bytesize("5FOO")
     Traceback (most recent call last):
         ...
     ValueError: Invalid number of bytes: '5FOO'
     """
-    return Bytes(value)
+    return Bytesize(value)
+
+
+# Obsolete
+bytesize = bytesize
+"""Obsolete alias."""
+
+Bytes = Bytesize
+"""Obsolete alias."""
