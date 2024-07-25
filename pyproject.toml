@@ -24,7 +24,7 @@
 
 [project]
 name = "humannum"
-version = "1.1.0"
+version = "1.1.1"
 description = "Human Friendly Numbers"
 readme = "README.md"
 authors = [
