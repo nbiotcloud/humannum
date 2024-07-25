@@ -40,7 +40,7 @@ dependencies = [
 
 [project.urls]
 "Homepage" = "https://github.com/nbiotcloud/humannum"
-"Documentation" = "https://humannum.readthedocs.io/en/latest/"
+"Documentation" = "https://humannum.readthedocs.io/en/stable/"
 "Bug Tracker" = "https://github.com/nbiotcloud/humannum/issues"
 
 [build-system]
