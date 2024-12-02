@@ -24,7 +24,7 @@
 
 [project]
 name = "humannum"
-version = ["dynamic"]
+dynamic = ["version"]
 description = "Human Friendly Numbers"
 readme = "README.md"
 authors = [
