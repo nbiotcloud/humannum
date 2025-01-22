@@ -65,6 +65,18 @@ Bytes:
     '42000 bytes'
     >>> str(bytesize_(42*1024))
     '42 KB'
+
+Frequency
+
+    >>> from humannum import freq
+    >>> freq(42)
+    Freq('42Hz')
+    >>> str(freq(42))
+    '42Hz'
+    >>> str(freq(42) + 24)
+    '66Hz'
+    >>> str(freq(42*1000))
+    '42kHz'
 """
 
 from typing import Any, Optional
@@ -72,6 +84,7 @@ from typing import Any, Optional
 from .binary import Bin
 from .bytesize import Bytesize
 from .converter import int_
+from .freq import Freq
 from .hex import Hex
 
 
@@ -208,6 +221,39 @@ def bytesize_(value: Any) -> Bytesize:
         ValueError: Invalid number of bytes: '5FOO'
     """
     return Bytesize(value)
+
+
+def freq(value: Any) -> Freq:
+    """
+    Integer with hexadecial representation.
+
+    The hexadecial format is kept through calculations
+
+    Args:
+        value: Value
+
+    ??? example "Usage"
+
+        >>> freq(32*1000*1000)
+        Freq('32MHz')
+        >>> str(freq(32*1000*1000))
+        '32MHz'
+        >>> str(freq("45000.2 Mhz"))
+        '45000.2MHz'
+        >>> str(freq(Freq(40*1000)))
+        '40kHz'
+        >>> str(freq("0x1000"))
+        '4096Hz'
+        >>> str(int(freq("0x1000")))
+        '4096'
+        >>> str(freq("-0x1000"))
+        '-4096Hz'
+        >>> freq("5FOO")
+        Traceback (most recent call last):
+            ...
+        ValueError: Invalid frequency: '5FOO'
+    """
+    return Freq(value)
 
 
 # Obsolete
