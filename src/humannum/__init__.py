@@ -1,7 +1,7 @@
 #
 # MIT License
 #
-# Copyright (c) 2023 nbiotcloud
+# Copyright (c) 2023-2025 nbiotcloud
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -79,7 +79,7 @@ Frequency
     '42kHz'
 """
 
-from typing import Any, Optional
+from typing import Any
 
 from .binary import Bin
 from .bytesize import Bytesize
@@ -88,7 +88,7 @@ from .freq import Freq
 from .hex import Hex
 
 
-def bin_(value: Any, width: Optional[int] = None) -> Bin:
+def bin_(value: Any, width: int | None = None) -> Bin:
     """
     Integer with binary representation.
 
@@ -139,7 +139,7 @@ def bin_(value: Any, width: Optional[int] = None) -> Bin:
     return Bin(value, width=width)
 
 
-def hex_(value: Any, width: Optional[int] = None) -> Hex:
+def hex_(value: Any, width: int | None = None) -> Hex:
     """
     Integer with hexadecial representation.
 
@@ -260,4 +260,14 @@ def freq(value: Any) -> Freq:
 bytes_ = bytesize_
 Bytes = Bytesize
 
-__all__ = ["bin_", "hex_", "bytesize_", "Bin", "Hex", "Bytesize", "bytes_", "Bytes", "int_"]
+__all__ = [
+    "Bin",
+    "Bytes",
+    "Bytesize",
+    "Hex",
+    "bin_",
+    "bytes_",
+    "bytesize_",
+    "hex_",
+    "int_",
+]

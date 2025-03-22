@@ -1,9 +1,8 @@
-site_name: HUMANNUM
-site_description: Human Friendly Numbers
+site_name: "HUMANNUM"
+site_description: "Human Friendly Numbers"
 site_url: https://humannum.readthedocs.io/en
 repo_url: https://github.com/nbiotcloud/humannum
-#strict: true
-copyright: Copyright (c) 2024 nbiotcloud
+copyright: Copyright (c) 2023 nbiotcloud
 
 theme:
   name: material
@@ -28,8 +27,10 @@ theme:
 
 nav:
   - Get Started:
-    - Welcome to HUMANNUM: index.md
-    - Contributing: contributing.md
+      - Welcome to HUMANNUM: index.md
+      - Contributing: contributing.md
+  - API:
+      - Overview: api.md
 
 plugins:
   - search
@@ -54,6 +55,7 @@ plugins:
             signature_crossrefs: true
             show_signature_annotations: false
             show_symbol_type_heading: true
+            # preload_modules: [pydantic]
             inherited_members: false
           import:
             - https://docs.python.org/3/objects.inv

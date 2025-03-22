@@ -2,7 +2,7 @@
 [![Python Build](https://github.com/nbiotcloud/humannum/actions/workflows/main.yml/badge.svg)](https://github.com/nbiotcloud/humannum/actions/workflows/main.yml)
 [![Documentation](https://readthedocs.org/projects/humannum/badge/?version=stable)](https://humannum.readthedocs.io/en/stable/)
 [![Coverage Status](https://coveralls.io/repos/github/nbiotcloud/humannum/badge.svg?branch=main)](https://coveralls.io/github/nbiotcloud/humannum?branch=main)
-[![versions](https://img.shields.io/pypi/pyversions/humannum.svg)](https://github.com/nbiotcloud/humannum)
+[![python-versions](https://img.shields.io/pypi/pyversions/humannum.svg)](https://pypi.python.org/pypi/humannum)
 
 # Human Friendly Numbers
 
@@ -18,7 +18,3 @@ Installing it is pretty easy:
 ```bash
 pip install humannum
 ```
-
-## Usage
-
-::: humannum
