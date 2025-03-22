@@ -1,7 +1,7 @@
 #
 # MIT License
 #
-# Copyright (c) 2023 nbiotcloud
+# Copyright (c) 2023-2025 nbiotcloud
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,7 @@
 #
 """Binary Class."""
 
-from typing import Any, Optional
+from typing import Any
 
 from . import converter
 from .baseint import BaseInt
@@ -115,11 +115,11 @@ class Bin(BaseInt):
             '-0b000011'
     """
 
-    def __new__(cls, value: Any, width: Optional[int] = None):
+    def __new__(cls, value: Any, width: int | None = None):
         value = converter.int_(value)[0]
         return super().__new__(cls, value)
 
-    def __init__(self, value: Any, width: Optional[int] = None):
+    def __init__(self, value: Any, width: int | None = None):
         if width is not None:
             self.width = width
         else:

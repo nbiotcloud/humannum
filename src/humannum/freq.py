@@ -1,7 +1,7 @@
 #
 # MIT License
 #
-# Copyright (c) 2023 nbiotcloud
+# Copyright (c) 2023-2025 nbiotcloud
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -178,5 +178,5 @@ def _format_freq(num):
     return f"{num}Hz"
 
 
-class InvalidFreq(Exception):
+class InvalidFreq(Exception):  # noqa: N818
     """Invalid Frequency."""

@@ -1,7 +1,7 @@
 #
 # MIT License
 #
-# Copyright (c) 2023 nbiotcloud
+# Copyright (c) 2023-2025 nbiotcloud
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,6 @@ Converter.
 import re
 from functools import lru_cache
 from math import ceil, log2
-from typing import Optional
 
 _int_prefixes = (
     (re.compile(r"\A(?P<s>-)?(?P<w>)0h(?P<v>.*)"), 16),
@@ -44,7 +43,7 @@ _int_prefixes = (
 
 
 @lru_cache(maxsize=32)
-def int_(value, strcast=None) -> tuple[int, Optional[int]]:
+def int_(value, strcast=None) -> tuple[int, int | None]:
     """
     Convert Integer.
 
@@ -85,7 +84,7 @@ def int_(value, strcast=None) -> tuple[int, Optional[int]]:
                 if wid:
                     width = int(wid)
                 else:
-                    width = int(ceil(len(mat.group("v")) * log2(base)))
+                    width = ceil(len(mat.group("v")) * log2(base))
                 return int(value), width
         if strcast:
             value = strcast(value)
