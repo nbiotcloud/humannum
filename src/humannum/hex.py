@@ -129,7 +129,6 @@ class Hex(BaseInt):
     def __str__(self):
         value = int(self)
         width = self.width
-        # pylint: disable=consider-using-f-string
         if width:
             pat = "0x%%0%dX" % ((width + 3) / 4,)  # noqa: UP031
         else:
